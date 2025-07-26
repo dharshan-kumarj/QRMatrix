@@ -1,18 +1,130 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Basic Meta Tags -->
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <!-- Primary Meta Tags -->
+    <title>QRMatrix - Free QR Code Generator | Create Custom QR Codes Online</title>
+    <meta name="title" content="QRMatrix - Free QR Code Generator | Create Custom QR Codes Online" />
+    <meta name="description" content="Generate beautiful, customizable QR codes instantly with QRMatrix. Add logos, choose colors, and download in PNG or SVG format. Free, fast, and secure QR code generator." />
+    <meta name="keywords" content="QR code generator, free QR code, custom QR code, QR code with logo, QR code maker, barcode generator, QR scanner, online QR generator" />
+    <meta name="author" content="Dharshan Kumar J" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="revisit-after" content="7 days" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://qrmatrix.dharshankumar.com/" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://qrmatrix.dharshankumar.com/" />
+    <meta property="og:title" content="QRMatrix - Free QR Code Generator | Create Custom QR Codes Online" />
+    <meta property="og:description" content="Generate beautiful, customizable QR codes instantly with QRMatrix. Add logos, choose colors, and download in PNG or SVG format. Free, fast, and secure." />
+    <meta property="og:image" content="https://qrmatrix.dharshankumar.com/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="QRMatrix" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://qrmatrix.dharshankumar.com/" />
+    <meta property="twitter:title" content="QRMatrix - Free QR Code Generator" />
+    <meta property="twitter:description" content="Generate beautiful, customizable QR codes instantly. Add logos, choose colors, and download in PNG or SVG format." />
+    <meta property="twitter:image" content="https://qrmatrix.dharshankumar.com/twitter-image.jpg" />
+    <meta property="twitter:creator" content="@dharshankumarj" />
+    
+    <!-- Additional SEO Meta Tags -->
+    <meta name="application-name" content="QRMatrix" />
+    <meta name="msapplication-TileColor" content="#1f2937" />
+    <meta name="theme-color" content="#1f2937" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="QRMatrix" />
+    <meta name="format-detection" content="telephone=no" />
+    
+    <!-- Favicon and Icons -->
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="Qrcode_Generator" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/web-app-manifest-192x192.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/web-app-manifest-512x512.png" />
+    
+    <!-- Web App Manifest -->
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>QRcode-Generator</title>
+    
+    <!-- Preconnect to external domains for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- DNS Prefetch for performance -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "QRMatrix",
+      "alternateName": "QR Code Generator",
+      "url": "https://qrmatrix.dharshankumar.com/",
+      "description": "Generate beautiful, customizable QR codes instantly with QRMatrix. Add logos, choose colors, and download in PNG or SVG format.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "permissions": "none",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Dharshan Kumar J",
+        "url": "https://github.com/dharshan-kumarj"
+      },
+      "creator": {
+        "@type": "Person",
+        "name": "Dharshan Kumar J",
+        "url": "https://github.com/dharshan-kumarj"
+      },
+      "datePublished": "2025-01-01",
+      "dateModified": "2025-07-26",
+      "inLanguage": "en-US",
+      "isAccessibleForFree": true,
+      "screenshot": "https://qrmatrix.dharshankumar.com/screenshot.jpg"
+    }
+    </script>
+    
+    <!-- Performance optimization -->
+    <link rel="preload" href="/src/main.tsx" as="script" />
+    
+    <!-- Security headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="DENY" />
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
+    
   </head>
   <body>
+    <!-- Main application container -->
     <div id="root"></div>
+    
+    <!-- Main application script -->
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- No JavaScript fallback -->
+    <noscript>
+      <div style="text-align: center; padding: 2rem; font-family: system-ui, sans-serif;">
+        <h1>🔳 QRMatrix</h1>
+        <p>This application requires JavaScript to run. Please enable JavaScript in your browser to use QRMatrix.</p>
+        <p>QRMatrix is a modern QR code generator that helps you create beautiful, customizable QR codes.</p>
+      </div>
+    </noscript>
   </body>
 </html>

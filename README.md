@@ -52,7 +52,7 @@
 
 ```bash
 git clone https://github.com/dharshan-kumarj/QRMatrix.git
-cd QRcode_Generator
+cd QRMatrix
 
 ```
 
