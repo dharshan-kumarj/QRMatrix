@@ -51,7 +51,7 @@
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/dharshan-kumarj/QRcode_Generator.git
+git clone https://github.com/dharshan-kumarj/QRMatrix.git
 cd QRcode_Generator
 
 ```
@@ -205,8 +205,8 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🔗 Links
 
-- **Repository**: [https://github.com/dharshan-kumarj/QRcode_Generator](https://github.com/dharshan-kumarj/QRcode_Generator)
-- **Live Demo**: [Deploy your own instance!](#)
+- **Repository**: [https://github.com/dharshan-kumarj/QRMatrix](https://github.com/dharshan-kumarj/QRMatrix)
+- **Live Demo**: [Deploy your own instance!](https://qrmatrix.dharshankumar.com/)
 
 ---
 
