@@ -1,63 +1,84 @@
-// QRCodeGenerator.tsx
-import { useState } from "react";
-import QRCode from "qrcode";
+// components/QRCodeGenerator.tsx
+import { useRef, useState } from "react";
+import QRCodeStyling from "qr-code-styling";
+
+const qrCode = new QRCodeStyling({
+  width: 300,
+  height: 300,
+  type: "svg", // SVG by default
+  data: "",
+  dotsOptions: {
+    color: "#ffffff",
+    type: "rounded",
+  },
+  backgroundOptions: {
+    color: "#1f2937", // Tailwind gray-800
+  },
+  imageOptions: {
+    crossOrigin: "anonymous",
+    margin: 10,
+  },
+});
 
 export default function QRCodeGenerator() {
+  const qrRef = useRef<HTMLDivElement>(null);
   const [text, setText] = useState("");
-  const [qrUrl, setQrUrl] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [file, setFile] = useState<File | null>(null);
 
-  const generateQRCode = async () => {
-    try {
-      if (!text.trim()) {
-        setError("Enter some text or a URL first.");
-        return;
-      }
-      const url = await QRCode.toDataURL(text, {
-        width: 256,
-        margin: 2,
-      });
-      setQrUrl(url);
-      setError(null);
-    } catch (err) {
-      console.error(err);
-      setError("Failed to generate QR code.");
-    }
+  const handleGenerate = () => {
+    qrCode.update({
+      data: text,
+      image: file ? URL.createObjectURL(file) : undefined,
+    });
+    qrCode.append(qrRef.current!);
+  };
+
+  const downloadAs = (type: "png" | "svg") => {
+    qrCode.download({ name: "qr-code", extension: type });
   };
 
   return (
-    <div className="flex flex-col items-center gap-4 bg-white p-6 rounded-2xl shadow-md w-full max-w-md">
-      <h1 className="text-xl font-semibold text-gray-700">QR Code Generator</h1>
+    <div className="bg-gray-900 text-white p-6 rounded-2xl w-full max-w-md shadow-lg space-y-4">
+      <h1 className="text-2xl font-bold text-center">QR Code Generator</h1>
 
       <input
         type="text"
-        placeholder="Enter text or link..."
+        placeholder="Enter URL or text..."
         value={text}
         onChange={(e) => setText(e.target.value)}
-        className="w-full p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400"
+        className="w-full p-2 rounded bg-gray-800 border border-gray-600 text-white"
+      />
+
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => setFile(e.target.files?.[0] || null)}
+        className="text-sm text-gray-300"
       />
 
       <button
-        onClick={generateQRCode}
-        className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition"
+        onClick={handleGenerate}
+        className="bg-green-500 w-full py-2 rounded hover:bg-green-600 transition"
       >
-        Generate
+        Generate QR
       </button>
 
-      {error && <p className="text-red-500 text-sm">{error}</p>}
+      <div ref={qrRef} className="flex justify-center py-4"></div>
 
-      {qrUrl && (
-        <div className="flex flex-col items-center">
-          <img src={qrUrl} alt="Generated QR" className="my-4" />
-          <a
-            href={qrUrl}
-            download="qrcode.png"
-            className="text-blue-600 underline text-sm"
-          >
-            Download PNG
-          </a>
-        </div>
-      )}
+      <div className="flex justify-between">
+        <button
+          onClick={() => downloadAs("png")}
+          className="bg-blue-500 px-4 py-1 rounded hover:bg-blue-600"
+        >
+          Download PNG
+        </button>
+        <button
+          onClick={() => downloadAs("svg")}
+          className="bg-purple-500 px-4 py-1 rounded hover:bg-purple-600"
+        >
+          Download SVG
+        </button>
+      </div>
     </div>
   );
 }
