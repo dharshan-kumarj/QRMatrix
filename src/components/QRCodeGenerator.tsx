@@ -1,5 +1,9 @@
-import React, { useRef, useState, useEffect } from "react";
-import QRCodeStyling from "qr-code-styling";
+import { useRef, useState, useEffect } from "react";
+import QRCodeStyling, {
+  DotType,
+  CornerSquareType,
+  CornerDotType,
+} from "qr-code-styling";
 import { HexColorPicker } from "react-colorful";
 import {
   Square,
@@ -8,18 +12,15 @@ import {
   PaintBucket,
   UploadCloud,
   Share2,
-  Share2Icon,
   ClipboardCopy,
   X,
   DownloadIcon,
-  Eye,
-  Shapes,
 } from "lucide-react";
 
 const qrCode = new QRCodeStyling({
   width: 300,
   height: 300,
-  type: "png",
+  type: "svg",
   data: "https://example.com",
   image: "",
   dotsOptions: {
@@ -38,51 +39,6 @@ const qrCode = new QRCodeStyling({
 });
 
 const QRCodeGenerator = () => {
-  const ref = useRef(null);
-  const modalRef = useRef(null);
-
-  const [url, setUrl] = useState("https://example.com");
-  const [fileExt, setFileExt] = useState("png");
-  const [color, setColor] = useState("#000000");
-  const [showColorPicker, setShowColorPicker] = useState(false);
-  const [dotStyle, setDotStyle] = useState("square");
-  const [markerStyle, setMarkerStyle] = useState("square");
-  const [markerCenter, setMarkerCenter] = useState("square");
-  const [downloadPulse, setDownloadPulse] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-
-  const presetColors = ["#000000", "#1A4D8F", "#ED6A33", "#ED2B2A", "#2A7432"];
-
-  useEffect(() => {
-    qrCode.append(ref.current);
-  }, []);
-
-  useEffect(() => {
-    qrCode.update({
-      data: url,
-      dotsOptions: { color, type: dotStyle },
-      cornersSquareOptions: { type: markerStyle },
-      cornersDotOptions: { type: markerCenter },
-    });
-  }, [url, fileExt, color, dotStyle, markerStyle, markerCenter]);
-
-  const handleDownload = () => {
-    setDownloadPulse(true);
-    qrCode.download(fileExt);
-    setTimeout(() => setDownloadPulse(false), 800);
-  };
-
-  const handleLogoUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        qrCode.update({ image: reader.result });
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(url);
@@ -101,6 +57,52 @@ const QRCodeGenerator = () => {
       alert("Failed to copy embed code");
     }
   };
+  const ref = useRef<HTMLDivElement>(null);
+  const modalRef = useRef<HTMLDivElement>(null);
+
+  const [url, setUrl] = useState("https://example.com");
+  const [fileExt, setFileExt] = useState("png");
+  const [color, setColor] = useState("#000000");
+  const [showColorPicker, setShowColorPicker] = useState(false);
+  const [dotStyle, setDotStyle] = useState("square");
+  const [markerStyle, setMarkerStyle] = useState("square");
+  const [markerCenter, setMarkerCenter] = useState("square");
+  const [downloadPulse, setDownloadPulse] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
+  const presetColors = ["#000000", "#1A4D8F", "#ED6A33", "#ED2B2A", "#2A7432"];
+
+  useEffect(() => {
+    if (ref.current) {
+      qrCode.append(ref.current);
+    }
+  }, []);
+
+  useEffect(() => {
+    qrCode.update({
+      data: url,
+      dotsOptions: { color, type: dotStyle as DotType },
+      cornersSquareOptions: { type: markerStyle as CornerSquareType },
+      cornersDotOptions: { type: markerCenter as CornerDotType },
+    });
+  }, [url, fileExt, color, dotStyle, markerStyle, markerCenter]);
+
+  const handleDownload = () => {
+    setDownloadPulse(true);
+    qrCode.download(fileExt);
+    setTimeout(() => setDownloadPulse(false), 800);
+  };
+
+  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        qrCode.update({ image: reader.result as string });
+      };
+      reader.readAsDataURL(file);
+    }
+  }
 
   const handleShare = async () => {
     try {
@@ -300,27 +302,11 @@ const QRCodeGenerator = () => {
   <DownloadIcon className="w-5 h-5" />
   <span>Download</span>
 </button>
-{/*
-
-<button
-  className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-  onClick={() => {
-    setShowModal(true);
-    setTimeout(() => {
-      modalRef.current.innerHTML = "";
-      qrCode.append(modalRef.current);
-    }, 50);
-  }}
->
-  <Share2Icon className="w-5 h-5" />
-  <span>Share</span>
-</button> */}
-
           </div>
         </div>
       </div>
     </>
   );
-};
+}
 
 export default QRCodeGenerator;
