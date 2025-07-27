@@ -2,16 +2,18 @@ import React, { useRef, useState, useEffect } from "react";
 import QRCodeStyling from "qr-code-styling";
 import { HexColorPicker } from "react-colorful";
 import {
-  SquareIcon,
-  CircleIcon,
-  PaintBucketIcon,
-  UploadCloudIcon,
-  ShapesIcon,
-  SquareRoundCornerIcon,
-  EyeIcon,
+  Square,
+  Circle,
+  SquareRoundCorner,
+  PaintBucket,
+  UploadCloud,
+  Share2,
   Share2Icon,
-  ClipboardCopyIcon,
-  XIcon,
+  ClipboardCopy,
+  X,
+  DownloadIcon,
+  Eye,
+  Shapes,
 } from "lucide-react";
 
 const qrCode = new QRCodeStyling({
@@ -38,6 +40,7 @@ const qrCode = new QRCodeStyling({
 const QRCodeGenerator = () => {
   const ref = useRef(null);
   const modalRef = useRef(null);
+
   const [url, setUrl] = useState("https://example.com");
   const [fileExt, setFileExt] = useState("png");
   const [color, setColor] = useState("#000000");
@@ -89,6 +92,16 @@ const QRCodeGenerator = () => {
     }
   };
 
+  const handleCopyEmbed = async () => {
+    const embedCode = `<img src='${url}' alt='QR Code' />`;
+    try {
+      await navigator.clipboard.writeText(embedCode);
+      alert("Embed code copied!");
+    } catch (err) {
+      alert("Failed to copy embed code");
+    }
+  };
+
   const handleShare = async () => {
     try {
       await navigator.share({ url });
@@ -99,6 +112,7 @@ const QRCodeGenerator = () => {
 
   return (
     <>
+    
       {/* MODAL */}
       {showModal && (
         <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
@@ -107,23 +121,40 @@ const QRCodeGenerator = () => {
               className="absolute top-3 right-3 text-gray-500 hover:text-black"
               onClick={() => setShowModal(false)}
             >
-              <XIcon className="w-5 h-5" />
+              <X className="w-5 h-5" />
             </button>
             <div className="flex justify-center mb-4">
               <div ref={modalRef} />
+            </div>
+            <div className="mb-4">
+              <label className="text-sm font-medium text-gray-700 mb-1 block">Embed Code</label>
+              <div className="relative">
+                <textarea
+                  readOnly
+                  className="w-full text-sm border rounded px-3 py-2 bg-gray-100 font-mono"
+                  rows={3}
+                  value={`<img src='${url}' alt='QR Code' />`}
+                />
+                <button
+                  onClick={handleCopyEmbed}
+                  className="absolute top-1 right-1 bg-black text-white px-2 py-1 text-xs rounded hover:bg-gray-800"
+                >
+                  Copy
+                </button>
+              </div>
             </div>
             <div className="flex justify-around mt-4">
               <button
                 className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800 flex items-center gap-2"
                 onClick={handleCopy}
               >
-                <ClipboardCopyIcon className="w-4 h-4" /> Copy Link
+                <ClipboardCopy className="w-4 h-4" /> Copy Link
               </button>
               <button
                 className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center gap-2"
                 onClick={handleShare}
               >
-                <Share2Icon className="w-4 h-4" /> Share
+                <Share2 className="w-4 h-4" /> Share
               </button>
             </div>
           </div>
@@ -131,24 +162,10 @@ const QRCodeGenerator = () => {
       )}
 
       <div className="flex flex-col md:flex-row w-full min-h-screen p-4 md:p-10 gap-6 bg-[url('/QR-BG.jpg')] bg-cover bg-center bg-no-repeat">
-        {/* QR PREVIEW */}
         <div className="w-full md:w-1/2 flex justify-center items-center relative">
           <div className="p-4 bg-white rounded-xl" ref={ref} />
-          <button
-            className="absolute bottom-4 right-4 bg-white border p-2 rounded-full shadow hover:scale-105 transition"
-            onClick={() => {
-              setShowModal(true);
-              setTimeout(() => {
-                modalRef.current.innerHTML = "";
-                qrCode.append(modalRef.current);
-              }, 50);
-            }}
-          >
-            <EyeIcon className="w-5 h-5 text-gray-700" />
-          </button>
         </div>
 
-        {/* QR CONFIG */}
         <div className="w-full md:w-1/2 bg-white rounded-xl p-6 shadow-xl">
           <h2 className="text-2xl font-bold mb-4 text-gray-900">Generate QR code</h2>
 
@@ -161,7 +178,6 @@ const QRCodeGenerator = () => {
             placeholder="Enter a website link, e.g., https://example.com"
           />
 
-          {/* File Format */}
           <div className="flex items-center gap-4 mb-4">
             <label className="text-sm text-gray-700">File format</label>
             <select
@@ -175,7 +191,6 @@ const QRCodeGenerator = () => {
             </select>
           </div>
 
-          {/* Color Picker */}
           <div className="mb-4 relative">
             <label className="text-sm mb-1 block text-gray-700">Choose a color</label>
             <div className="flex items-center gap-2 mb-2 flex-wrap">
@@ -194,7 +209,7 @@ const QRCodeGenerator = () => {
                   onClick={() => setShowColorPicker(!showColorPicker)}
                   className="p-2 border rounded bg-gray-100 hover:bg-gray-200"
                 >
-                  <PaintBucketIcon className="w-5 h-5" />
+                  <PaintBucket className="w-5 h-5" />
                 </button>
                 {showColorPicker && (
                   <div className="absolute z-20 mt-2 bg-white p-2 shadow-lg rounded">
@@ -205,16 +220,15 @@ const QRCodeGenerator = () => {
             </div>
           </div>
 
-          {/* Style Options */}
           <div className="mb-4">
             <label className="text-sm mb-1 block text-gray-700">Choose a style</label>
 
             <div className="flex items-center gap-4 mb-2 flex-wrap">
               <span className="text-sm text-gray-600">Dots</span>
               {[
-                { type: "square", icon: <SquareIcon /> },
-                { type: "rounded", icon: <ShapesIcon /> },
-                { type: "dots", icon: <CircleIcon /> },
+                { type: "square", icon: <Square className="w-4 h-4" /> },
+                { type: "rounded", icon: <SquareRoundCorner className="w-4 h-4" /> },
+                { type: "dots", icon: <Circle className="w-4 h-4" /> },
               ].map(({ type, icon }) => (
                 <button
                   key={type}
@@ -231,9 +245,9 @@ const QRCodeGenerator = () => {
             <div className="flex items-center gap-4 mb-2 flex-wrap">
               <span className="text-sm text-gray-600">Marker border</span>
               {[
-                { type: "square", icon: <SquareIcon /> },
-                { type: "extra-rounded", icon: <SquareRoundCornerIcon /> },
-                { type: "dot", icon: <CircleIcon /> },
+                { type: "square", icon: <Square className="w-4 h-4" /> },
+                { type: "extra-rounded", icon: <SquareRoundCorner className="w-4 h-4" /> },
+                { type: "dot", icon: <Circle className="w-4 h-4" /> },
               ].map(({ type, icon }) => (
                 <button
                   key={type}
@@ -250,8 +264,8 @@ const QRCodeGenerator = () => {
             <div className="flex items-center gap-4 mb-2 flex-wrap">
               <span className="text-sm text-gray-600">Marker center</span>
               {[
-                { type: "square", icon: <SquareIcon /> },
-                { type: "dot", icon: <CircleIcon /> },
+                { type: "square", icon: <Square className="w-4 h-4" /> },
+                { type: "dot", icon: <Circle className="w-4 h-4" /> },
               ].map(({ type, icon }) => (
                 <button
                   key={type}
@@ -266,25 +280,43 @@ const QRCodeGenerator = () => {
             </div>
           </div>
 
-          {/* Upload Logo */}
           <div className="mb-6">
             <label className="text-sm mb-1 block text-gray-700">Upload Logo</label>
             <label className="flex items-center gap-2 p-4 border-2 border-dashed rounded-xl cursor-pointer bg-white hover:shadow-lg">
-              <UploadCloudIcon className="w-6 h-6 text-gray-800" />
+              <UploadCloud className="w-6 h-6 text-gray-800" />
               <span className="text-sm font-medium text-gray-800">Choose File</span>
               <input type="file" onChange={handleLogoUpload} className="hidden" />
             </label>
           </div>
 
-          {/* Download Button */}
-          <button
-            className={`bg-black text-white px-4 py-2 rounded hover:bg-gray-800 ${
-              downloadPulse ? "animate-pulse" : ""
-            }`}
-            onClick={handleDownload}
-          >
-            Download
-          </button>
+          <div className="flex gap-4">
+             {/* Download Button */}
+<button
+  className={`flex items-center gap-2 bg-black text-white px-4 py-2 rounded hover:bg-gray-800 ${
+    downloadPulse ? "animate-pulse" : ""
+  }`}
+  onClick={handleDownload}
+>
+  <DownloadIcon className="w-5 h-5" />
+  <span>Download</span>
+</button>
+{/*
+
+<button
+  className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+  onClick={() => {
+    setShowModal(true);
+    setTimeout(() => {
+      modalRef.current.innerHTML = "";
+      qrCode.append(modalRef.current);
+    }, 50);
+  }}
+>
+  <Share2Icon className="w-5 h-5" />
+  <span>Share</span>
+</button> */}
+
+          </div>
         </div>
       </div>
     </>
