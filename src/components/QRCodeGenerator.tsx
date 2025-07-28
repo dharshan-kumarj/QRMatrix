@@ -114,7 +114,6 @@ const QRCodeGenerator = () => {
 
   return (
     <>
-    
       {/* MODAL */}
       {showModal && (
         <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center">
@@ -163,7 +162,7 @@ const QRCodeGenerator = () => {
         </div>
       )}
 
-      <div className="flex flex-col md:flex-row w-full min-h-screen p-4 md:p-10 gap-6 bg-[url('/QR-BG.jpg')] bg-cover bg-center bg-no-repeat">
+      <div className="flex flex-col md:flex-row w-full min-h-screen p-4 md:p-10 gap-6 bg-white">
         <div className="w-full md:w-1/2 flex justify-center items-center relative">
           <div className="p-4 bg-white rounded-xl" ref={ref} />
         </div>
@@ -292,16 +291,16 @@ const QRCodeGenerator = () => {
           </div>
 
           <div className="flex gap-4">
-             {/* Download Button */}
-<button
-  className={`flex items-center gap-2 bg-black text-white px-4 py-2 rounded hover:bg-gray-800 ${
-    downloadPulse ? "animate-pulse" : ""
-  }`}
-  onClick={handleDownload}
->
-  <DownloadIcon className="w-5 h-5" />
-  <span>Download</span>
-</button>
+            {/* Download Button */}
+            <button
+              className={`flex items-center gap-2 bg-black text-white px-4 py-2 rounded hover:bg-gray-800 ${
+                downloadPulse ? "animate-pulse" : ""
+              }`}
+              onClick={handleDownload}
+            >
+              <DownloadIcon className="w-5 h-5" />
+              <span>Download</span>
+            </button>
           </div>
         </div>
       </div>

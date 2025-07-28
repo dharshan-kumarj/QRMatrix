@@ -2,10 +2,76 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Reset & base styling */
+html,
 body {
-  background-image: url('/QR-BG.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  overflow: auto;
+  font-family: 'Ubuntu', sans-serif;
+  background-color: #f9f9f9;
+  color: #111827; /* Tailwind's neutral gray-900 */
 }
-    
+
+/* Prevent mobile tap highlight */
+button, input, select, textarea {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+/* Smooth animations */
+* {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* QR Code Upload Area Dashed Border */
+.upload-area {
+  @apply border-2 border-dashed border-gray-300 rounded-md p-4 text-center cursor-pointer hover:border-black hover:bg-gray-50;
+}
+
+/* Tab Button Styles */
+.tab-button {
+  @apply pb-2 border-b-2 text-sm font-semibold transition;
+}
+
+/* Tab Button Active/Inactive Example - use via className conditionally */
+.tab-active {
+  @apply border-black text-black;
+}
+
+.tab-inactive {
+  @apply border-transparent text-gray-500 hover:text-black;
+}
+
+/* Custom shadow for card (QR generator) */
+.card-glass {
+  @apply bg-white/90 backdrop-blur-md rounded-2xl shadow-2xl;
+}
+
+/* Logo upload preview image */
+.logo-preview {
+  @apply w-20 h-20 object-contain rounded-lg border border-gray-300;
+}
+
+/* QR generator layout grid (you can use in component) */
+.qr-layout {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-8 items-start;
+}

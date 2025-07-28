@@ -1,0 +1,132 @@
+.container {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.08);
+  padding: 2rem;
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #1a202c;
+  margin-bottom: 1.5rem;
+}
+
+.tabBar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.tabButton {
+  padding: 0.75rem 2rem;
+  border-radius: 0.75rem;
+  font-weight: 500;
+  background: #f3f4f6;
+  color: #222;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.tabButtonActive {
+  background: #111;
+  color: #fff;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
+}
+
+.uploadLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 2px dashed #d1d5db;
+  border-radius: 1rem;
+  background: #fff;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  transition: box-shadow 0.2s;
+}
+.uploadLabel:hover {
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
+}
+
+.select,
+.input {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  margin-bottom: 1.25rem;
+  font-size: 1rem;
+}
+
+.colorPicker {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.styleOptions {
+  margin-bottom: 1.5rem;
+}
+
+.styleRow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.styleLabel {
+  font-size: 0.95rem;
+  color: #6b7280;
+  min-width: 110px;
+}
+
+.iconButton {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  background: #fff;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.iconButtonActive {
+  background: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+.logoPreview {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.button {
+  width: 100%;
+  background: #111;
+  color: #fff;
+  padding: 0.75rem 0;
+  border-radius: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: background 0.2s;
+}
+.button:hover {
+  background: #222;
+}
+
+.status {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: #4b5563;
+}
