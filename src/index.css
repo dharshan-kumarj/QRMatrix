@@ -2,10 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background-image: url('/QR-BG.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+/* QR Code Upload Area Dashed Border */
+.upload-area {
+  @apply border-2 border-dashed border-gray-300 rounded-xl p-5 text-center cursor-pointer bg-white shadow-sm hover:border-blue-600 hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200 ease-in-out relative;
+  animation: fadeIn 0.7s cubic-bezier(0.4,0,0.2,1);
 }
-    
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Tab Button Styles */
+.tab-button {
+  @apply pb-2 border-b-2 text-base font-semibold transition-all duration-200 px-4 py-2 bg-gradient-to-r from-blue-50 to-white focus:outline-none focus:ring-2 focus:ring-blue-400 hover:scale-105 hover:shadow-md;
+}
+
+/* Tab Button Active/Inactive Example - use via className conditionally */
+.tab-active {
+  @apply border-blue-600 text-blue-700 bg-gradient-to-r from-blue-100 to-blue-50 shadow-sm;
+  box-shadow: 0 2px 8px 0 rgba(59,130,246,0.08);
+}
+
+.tab-inactive {
+  @apply border-transparent text-gray-500 hover:text-blue-700 hover:bg-gray-100;
+  opacity: 0.85;
+}
+
+/* Custom shadow for card (QR generator) */
+.card-glass {
+  @apply bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl border border-gray-200 relative overflow-hidden;
+}
+.card-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg,rgba(59,130,246,0.07) 0%,rgba(236,72,153,0.07) 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Logo upload preview image */
+.logo-preview {
+  @apply w-20 h-20 object-contain rounded-lg border border-gray-300 bg-gradient-to-br from-blue-50 to-pink-50 shadow-md ring-2 ring-blue-100 hover:ring-pink-200 transition-all duration-200;
+}
+
+/* QR generator layout grid (you can use in component) */
+.qr-layout {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-10 items-start w-full max-w-5xl mx-auto;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
